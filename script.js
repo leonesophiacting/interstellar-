@@ -10,7 +10,7 @@ function updateClocks() {
     return;
   }
 
-  // Earth time
+  // Earth countdown
   let days = Math.floor(distance / (1000 * 60 * 60 * 24));
   let hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
   let minutes = Math.floor((distance / (1000 * 60)) % 60);
@@ -19,7 +19,7 @@ function updateClocks() {
   document.getElementById("earthClock").innerHTML =
     `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-  // Miller's Planet (time dilation)
+  // Miller's Planet (simple exaggeration factor)
   let millerDistance = distance * 61320;
 
   let mDays = Math.floor(millerDistance / (1000 * 60 * 60 * 24));
