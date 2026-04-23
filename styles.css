@@ -20,8 +20,8 @@ h1 {
 .clock {
   border: 2px solid white;
   padding: 20px;
-  border-radius: 10px;
   width: 250px;
+  border-radius: 10px;
 }
 
 .clock p {
