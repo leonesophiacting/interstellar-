@@ -2,14 +2,15 @@ const targetDate = new Date("2026-06-06T00:00:00-05:00").getTime();
 
 function updateClocks() {
   const now = new Date().getTime();
-  const distance = targetDate - now;
+  let distance = targetDate - now;
 
-  if (distance <= 0) {
-    document.getElementById("earthClock").innerHTML = "DONE";
-    document.getElementById("millerClock").innerHTML = "DONE";
+  if (distance < 0) {
+    document.getElementById("earthClock").innerHTML = "EXPIRED";
+    document.getElementById("millerClock").innerHTML = "EXPIRED";
     return;
   }
 
+  // Earth countdown
   let days = Math.floor(distance / (1000 * 60 * 60 * 24));
   let hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
   let minutes = Math.floor((distance / (1000 * 60)) % 60);
@@ -18,7 +19,8 @@ function updateClocks() {
   document.getElementById("earthClock").innerHTML =
     `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-  let miller = distance * 100; // simplified so it doesn't go crazy
+  // Miller's Planet exaggeration
+  let miller = distance * 10;
 
   let mDays = Math.floor(miller / (1000 * 60 * 60 * 24));
   let mHours = Math.floor((miller / (1000 * 60 * 60)) % 24);
