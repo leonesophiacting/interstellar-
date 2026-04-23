@@ -2,7 +2,13 @@ const targetDate = new Date("2026-06-06T00:00:00-05:00").getTime();
 
 function updateClocks() {
   const now = new Date().getTime();
-  let distance = targetDate - now;
+  const distance = targetDate - now;
+
+  if (distance <= 0) {
+    document.getElementById("earthClock").innerHTML = "DONE";
+    document.getElementById("millerClock").innerHTML = "DONE";
+    return;
+  }
 
   let days = Math.floor(distance / (1000 * 60 * 60 * 24));
   let hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
@@ -12,10 +18,16 @@ function updateClocks() {
   document.getElementById("earthClock").innerHTML =
     `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-  let miller = distance * 61320;
+  let miller = distance * 100; // simplified so it doesn't go crazy
+
+  let mDays = Math.floor(miller / (1000 * 60 * 60 * 24));
+  let mHours = Math.floor((miller / (1000 * 60 * 60)) % 24);
+  let mMinutes = Math.floor((miller / (1000 * 60)) % 60);
+  let mSeconds = Math.floor((miller / 1000) % 60);
 
   document.getElementById("millerClock").innerHTML =
-    Math.floor(miller / 1000) + " ms (scaled)";
+    `${mDays}d ${mHours}h ${mMinutes}m ${mSeconds}s`;
 }
 
 setInterval(updateClocks, 1000);
+updateClocks();
