@@ -4,6 +4,13 @@ function updateClocks() {
   const now = new Date().getTime();
   let distance = targetDate - now;
 
+  if (distance < 0) {
+    document.getElementById("earthClock").innerHTML = "EXPIRED";
+    document.getElementById("millerClock").innerHTML = "EXPIRED";
+    return;
+  }
+
+  // Earth time
   let days = Math.floor(distance / (1000 * 60 * 60 * 24));
   let hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
   let minutes = Math.floor((distance / (1000 * 60)) % 60);
@@ -12,10 +19,17 @@ function updateClocks() {
   document.getElementById("earthClock").innerHTML =
     `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-  let miller = distance * 61320;
+  // Miller's Planet (time dilation)
+  let millerDistance = distance * 61320;
+
+  let mDays = Math.floor(millerDistance / (1000 * 60 * 60 * 24));
+  let mHours = Math.floor((millerDistance / (1000 * 60 * 60)) % 24);
+  let mMinutes = Math.floor((millerDistance / (1000 * 60)) % 60);
+  let mSeconds = Math.floor((millerDistance / 1000) % 60);
 
   document.getElementById("millerClock").innerHTML =
-    Math.floor(miller / 1000) + " ms (scaled)";
+    `${mDays}d ${mHours}h ${mMinutes}m ${mSeconds}s`;
 }
 
 setInterval(updateClocks, 1000);
+updateClocks();
